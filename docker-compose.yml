@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  youtube-bot:
+    build: .
+    container_name: youtube-telegram-bot
+    restart: unless-stopped
+    volumes:
+      - ./downloads:/app/downloads
+      - ./logs:/app/logs
+    environment:
+      - API_ID=${API_ID}
+      - API_HASH=${API_HASH}
+      - BOT_TOKEN=${BOT_TOKEN}
+    env_file:
+      - .env
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  downloads:
+  logs:
